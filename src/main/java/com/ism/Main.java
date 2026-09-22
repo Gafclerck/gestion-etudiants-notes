@@ -2,6 +2,7 @@ package com.ism;
 
 import com.ism.domain.Etudiant;
 import com.ism.repository.EtudiantRepository;
+import com.ism.repository.memory.DatabaseMemory;
 import com.ism.repository.memory.EtudiantRepositoryMemory;
 import com.ism.service.EtudiantService;
 import com.ism.service.EtudiantServiceImpl;
@@ -9,7 +10,8 @@ import com.ism.service.EtudiantServiceImpl;
 public class Main {
     public static void main(String[] args) {
         // FACTORY
-        EtudiantRepository erm = new EtudiantRepositoryMemory();
+        DatabaseMemory dbm = DatabaseMemory.getInstance();
+        EtudiantRepository erm = new EtudiantRepositoryMemory(dbm);
         EtudiantService es = new EtudiantServiceImpl(erm);
 
         String choix;
