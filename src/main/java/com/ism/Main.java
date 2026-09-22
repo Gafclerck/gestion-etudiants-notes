@@ -1,18 +1,14 @@
 package com.ism;
 
 import com.ism.domain.Etudiant;
-import com.ism.repository.EtudiantRepository;
-import com.ism.repository.memory.DatabaseMemory;
-import com.ism.repository.memory.EtudiantRepositoryMemory;
+import com.ism.factory.RepositoryFactory;
 import com.ism.service.EtudiantService;
 import com.ism.service.EtudiantServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
         // FACTORY
-        DatabaseMemory dbm = DatabaseMemory.getInstance();
-        EtudiantRepository erm = new EtudiantRepositoryMemory(dbm);
-        EtudiantService es = new EtudiantServiceImpl(erm);
+        EtudiantService es = new EtudiantServiceImpl(RepositoryFactory.createEtudiantRepository());
 
         String choix;
         do {
