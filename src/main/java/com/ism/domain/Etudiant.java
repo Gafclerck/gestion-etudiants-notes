@@ -1,6 +1,7 @@
 package com.ism.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,9 @@ import lombok.ToString;
 @NoArgsConstructor 
 @AllArgsConstructor 
 @ToString 
-public class Etudiant {
+@Builder 
+public class Etudiant extends AbstractEntity{
     private String nomComplet;
     private String matricule;
-    private String classe;    
+    private String classe; 
 }
