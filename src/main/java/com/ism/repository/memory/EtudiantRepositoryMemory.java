@@ -1,6 +1,7 @@
 package com.ism.repository.memory;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ism.domain.Etudiant;
 import com.ism.repository.EtudiantRepository;
@@ -21,6 +22,16 @@ public class EtudiantRepositoryMemory implements EtudiantRepository {
     @Override
     public List<Etudiant> selectAll() {
         return dbm.etudiants;
+    }
+
+    @Override
+    public Optional<Etudiant> selectByMatricule(String matricule) {
+        for (Etudiant etudiant : dbm.etudiants) {
+            if (etudiant.getMatricule().equals(matricule)) {
+                return Optional.of(etudiant);
+            }
+        }
+        return Optional.empty();
     }
     
 }
