@@ -12,7 +12,10 @@ import lombok.ToString;
 @AllArgsConstructor 
 @ToString 
 public class Note {
+    private int id;
     private String matiere;
     private double valeur;
     private Etudiant etudiant;
+
+    
 }

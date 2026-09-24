@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor 
 @ToString 
 public class Etudiant {
+    private int id;
     private String nomComplet;
     private String matricule;
     private String classe;    
