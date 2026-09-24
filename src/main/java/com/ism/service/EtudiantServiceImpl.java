@@ -21,8 +21,9 @@ public class EtudiantServiceImpl implements EtudiantService{
                                         .nomComplet(nouveau.nomComplet)
                                         .matricule(nouveau.matricule)
                                         .classe(nouveau.classe)
-                                        .createAt(LocalDateTime.now())
+                                        // .createAt(LocalDateTime.now())
                                         .build();
+        newEtudiant.setCreateAt(LocalDateTime.now());
         return repo.insert(newEtudiant);
     }
 

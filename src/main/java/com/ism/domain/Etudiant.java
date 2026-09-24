@@ -1,7 +1,5 @@
 package com.ism.domain;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor 
 @ToString 
 @Builder 
-public class Etudiant {
-    private int id;
+public class Etudiant extends AbstractEntity{
     private String nomComplet;
     private String matricule;
-    private String classe;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;    
+    private String classe; 
 }
