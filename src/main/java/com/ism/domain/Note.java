@@ -14,4 +14,5 @@ import lombok.ToString;
 public class Note {
     private Double note;
     private String? matiere;
+    Etudiant etudiant;
 }

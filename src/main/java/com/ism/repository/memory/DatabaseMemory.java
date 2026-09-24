@@ -7,6 +7,7 @@ import com.ism.domain.Etudiant;
 
 public class DatabaseMemory {
     public final List<Etudiant> etudiants = new ArrayList<>();
+    public final Map<String, List<Note>> notes = new HashMap<>();
 
     // singleton design pattern
     private static DatabaseMemory instance = null;
