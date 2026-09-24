@@ -14,5 +14,6 @@ import lombok.ToString;
 public class Etudiant {
     private String nomComplet;
     private String matricule;
-    private String classe;    
+    private String classe;  
+    private List<Note> notes;  
 }
