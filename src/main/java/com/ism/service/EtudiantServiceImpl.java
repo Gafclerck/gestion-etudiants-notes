@@ -1,5 +1,6 @@
 package com.ism.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.ism.domain.Etudiant;
@@ -16,7 +17,12 @@ public class EtudiantServiceImpl implements EtudiantService{
     @Override
     public boolean addEtudiant(EtudiantCreateDto nouveau) { 
         // mapping dto to entity
-        Etudiant newEtudiant = new Etudiant(0, nouveau.nomComplet, nouveau.matricule, nouveau.classe);
+        Etudiant newEtudiant = Etudiant.builder() 
+                                        .nomComplet(nouveau.nomComplet)
+                                        .matricule(nouveau.matricule)
+                                        .classe(nouveau.classe)
+                                        .createAt(LocalDateTime.now())
+                                        .build();
         return repo.insert(newEtudiant);
     }
 
