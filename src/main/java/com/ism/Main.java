@@ -3,22 +3,21 @@ package com.ism;
 import com.ism.domain.Etudiant;
 import com.ism.factory.RepositoryFactory;
 import com.ism.service.EtudiantService;
-import com.ism.service.EtudiantServiceImpl;
 import com.ism.dto.EtudiantCreateDto;
 import com.ism.dto.NoteCreateDto;
 import com.ism.dto.EtudiantListeDto;
 import com.ism.dto.NoteListeDto;
-import com.ism.service.MoyenneService;
-import com.ism.service.MoyenneServiceImpl;
 import com.ism.service.NoteService;
-import com.ism.service.NoteServiceImpl;
+import com.ism.factory.ServiceFactory;
 
 public class Main {
     public static void main(String[] args) {
         // FACTORY
-        MoyenneService ms = new MoyenneServiceImpl();
-        EtudiantService es = new EtudiantServiceImpl(RepositoryFactory.createEtudiantRepository(), RepositoryFactory.createNoteRepository(), ms);
-        NoteService ns = new NoteServiceImpl(RepositoryFactory.createNoteRepository());
+        EtudiantService es = ServiceFactory.createEtudiantService(
+                RepositoryFactory.createEtudiantRepository(),
+                RepositoryFactory.createNoteRepository(),
+                ServiceFactory.createMoyenneService());
+        NoteService ns = ServiceFactory.createNoteService(RepositoryFactory.createNoteRepository());
 
         String choix;
         do {
@@ -56,7 +55,8 @@ public class Main {
                     if (etudiant.isEmpty()) {
                         System.out.println("Ce matricule ne correspond à aucun étudiant");
                     } else {
-                        String matiere = System.console().readLine("Matricule : ");;
+                        String matiere = System.console().readLine("Matricule : ");
+                        ;
                         double valeur = Double.parseDouble(System.console().readLine("Valeur : "));
                         NoteCreateDto nouvelle = new NoteCreateDto(valeur, matiere, etudiant.get());
                         success = ns.addNote(nouvelle);
@@ -77,9 +77,9 @@ public class Main {
                     break;
 
                 case "0":
-                    
+
                     break;
-            
+
                 default:
                     break;
             }
