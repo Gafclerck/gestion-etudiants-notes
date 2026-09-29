@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor 
 @AllArgsConstructor 
 @ToString 
-public class Note {
+public class Note extends AbstractEntity {
     private Double note;
     private String? matiere;
     Etudiant etudiant;

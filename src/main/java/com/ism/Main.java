@@ -4,6 +4,7 @@ import com.ism.domain.Etudiant;
 import com.ism.factory.RepositoryFactory;
 import com.ism.service.EtudiantService;
 import com.ism.service.EtudiantServiceImpl;
+import com.ism.dto.EtudiantCreateDto;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class Main {
                     String nom = System.console().readLine("Nom complet : ");
                     String matricule = System.console().readLine("Matricule : ");
                     String classe = System.console().readLine("Classe : ");
-                    Etudiant nouveau = new Etudiant(nom, matricule, classe);
+                    Etudiant nouveau = new EtudiantCreateDto(nom, matricule, classe);
                     boolean success = es.addEtudiant(nouveau);
                     if (success) {
                         System.out.println("Succès");

@@ -13,8 +13,16 @@ public class EtudiantServiceImpl implements EtudiantService{
     }
 
     @Override
-    public boolean addEtudiant(Etudiant nouveau) {
-        return repo.insert(nouveau);
+    public boolean addEtudiant(EtudiantCreateDto nouveau) {
+        // mapping from DTO to domain object
+        Etudiant etudiant = new Etudiant.builder()
+                .nomComplet(nouveau.getNomComplet())
+                .matricule(nouveau.getMatricule())
+                .classe(nouveau.getClasse())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+        return repo.insert(etudiant);
     }
 
     @Override
