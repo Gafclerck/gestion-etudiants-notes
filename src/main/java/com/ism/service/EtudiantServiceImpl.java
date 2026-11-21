@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import com.ism.domain.Etudiant;
 import com.ism.domain.Note;
+import com.ism.exception.MatriculeAlreadyExistsException;
+import com.ism.exception.ValidationException;
 import com.ism.repository.EtudiantRepository;
 import com.ism.repository.NoteRepository;
 import com.ism.dto.EtudiantCreateDto;
@@ -27,12 +29,24 @@ public class EtudiantServiceImpl implements EtudiantService{
 
     @Override
     public boolean addEtudiant(EtudiantCreateDto nouveau) { 
+        if (nouveau == null) {
+            throw new ValidationException("Les informations de l'étudiant sont obligatoires");
+        }
+        if (nouveau.nomComplet == null || nouveau.nomComplet.isBlank()) {
+            throw new ValidationException("Le nom complet est obligatoire");
+        }
+        if (nouveau.matricule == null || nouveau.matricule.isBlank()) {
+            throw new ValidationException("Le matricule est obligatoire");
+        }
+        if (repo.selectByMatricule(nouveau.matricule).isPresent()) {
+            throw new MatriculeAlreadyExistsException("Le matricule " + nouveau.matricule + " existe déjà");
+        }
+
         // mapping dto to entity
         Etudiant newEtudiant = Etudiant.builder() 
                                         .nomComplet(nouveau.nomComplet)
                                         .matricule(nouveau.matricule)
                                         .classe(nouveau.classe)
-                                        // .createAt(LocalDateTime.now())
                                         .build();
         newEtudiant.setCreateAt(LocalDateTime.now());
         return repo.insert(newEtudiant);
