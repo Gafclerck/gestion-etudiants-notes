@@ -8,12 +8,13 @@ public class MoyenneServiceImpl implements MoyenneService {
 
     @Override
     public double moyenne(List<Note> notes) {
-        double somme = 0;
-        for (Note note : notes) {
-            somme += note.getValeur();
+        if (notes == null || notes.isEmpty()) {
+            return 0.0;
         }
-        double moy = somme / notes.size();
-        return moy;
+        return notes.stream()
+                .mapToDouble(Note::getValeur)
+                .average()
+                .orElse(0.0);
     }
     
 }

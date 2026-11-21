@@ -61,19 +61,20 @@ public class EtudiantServiceImpl implements EtudiantService{
 
     @Override
     public List<EtudiantListeDto> findAllWithNotes() {
-        List<EtudiantListeDto> liste = new ArrayList<>();
-        var etudiants = repo.selectAll();
-        for (Etudiant etudiant : etudiants) {
-            var notes = repoNote.selectByEtudiant(etudiant.getMatricule());
-            List<NoteListeDto> notesDto = new ArrayList<>();
-            for (Note note : notes) {
-                NoteListeDto noteDto = new NoteListeDto(note.getValeur(), note.getMatiere());
-                notesDto.add(noteDto);
-            }
-            EtudiantListeDto et = new EtudiantListeDto(etudiant.getMatricule(), etudiant.getNomComplet(), notesDto, moyenneService.moyenne(notes));
-            liste.add(et);
-        }
-        return liste;
+        return repo.selectAll().stream()
+                .map(etudiant -> {
+                    List<Note> notes = repoNote.selectByEtudiant(etudiant.getMatricule());
+                    List<NoteListeDto> notesDto = notes.stream()
+                            .map(n -> new NoteListeDto(n.getValeur(), n.getMatiere()))
+                            .toList();
+                    return new EtudiantListeDto(
+                            etudiant.getMatricule(),
+                            etudiant.getNomComplet(),
+                            notesDto,
+                            moyenneService.moyenne(notes)
+                    );
+                })
+                .toList();
     }
 
     @Override
