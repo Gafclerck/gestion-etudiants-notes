@@ -11,6 +11,7 @@ import com.ism.repository.EtudiantRepository;
 import com.ism.repository.NoteRepository;
 import com.ism.dto.EtudiantCreateDto;
 import com.ism.dto.EtudiantListeDto;
+import com.ism.dto.EtudiantSimpleDto;
 import com.ism.dto.NoteListeDto;
 
 public class EtudiantServiceImpl implements EtudiantService{
@@ -38,8 +39,10 @@ public class EtudiantServiceImpl implements EtudiantService{
     }
 
     @Override
-    public List<Etudiant> findAll() {
-        return repo.selectAll();
+    public List<EtudiantSimpleDto> findAll() {
+        return repo.selectAll().stream()
+                .map(e -> new EtudiantSimpleDto(e.getMatricule(), e.getNomComplet(), e.getClasse()))
+                .toList();
     }
 
     @Override

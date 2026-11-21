@@ -4,8 +4,9 @@ import com.ism.domain.Etudiant;
 import com.ism.factory.RepositoryFactory;
 import com.ism.service.EtudiantService;
 import com.ism.dto.EtudiantCreateDto;
-import com.ism.dto.NoteCreateDto;
 import com.ism.dto.EtudiantListeDto;
+import com.ism.dto.EtudiantSimpleDto;
+import com.ism.dto.NoteCreateDto;
 import com.ism.dto.NoteListeDto;
 import com.ism.service.NoteService;
 import com.ism.factory.ServiceFactory;
@@ -44,8 +45,8 @@ public class Main {
 
                 case "2":
                     var etudiants = es.findAll();
-                    for (Etudiant etudiant : etudiants) {
-                        System.out.println(etudiant);
+                    for (EtudiantSimpleDto etudiant : etudiants) {
+                        System.out.println("Matricule : " + etudiant.matricule() + " | Nom : " + etudiant.nomComplet() + " | Classe : " + etudiant.classe());
                     }
                     break;
 
